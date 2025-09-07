@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Electoral Archive Senegal</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .redirect-container {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 90%;
+        }
+        
+        .logo {
+            font-size: 2.5em;
+            color: #1e3c72;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #1e3c72;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .redirect-message {
+            color: #666;
+            font-size: 1.1em;
+            margin-top: 20px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background-color: #f0f0f0;
+            border-radius: 3px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #1e3c72, #2a5298);
+            width: 0%;
+            animation: progress 3s ease-in-out forwards;
+        }
+        
+        @keyframes progress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+    </style>
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Felectoral1443back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+</head>
+<body>
+    <div class="redirect-container">
+        <div class="logo">🗳️ Electoral Archive Senegal</div>
+        <div class="loading-spinner"></div>
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+        <div class="redirect-message">
+            Redirecting to Electoral Data Dashboard...
+        </div>
+    </div>
+
+    <script>
+        // Redirect to the electoral data dashboard after 3 seconds
+        setTimeout(function() {
+            window.location.href = 'pages/electoral_data_dashboard.html';
+        }, 3000);
+        
+        // Optional: Allow immediate redirect on click
+        document.addEventListener('click', function() {
+            window.location.href = 'pages/electoral_data_dashboard.html';
+        });
+    </script>
+<script id="dhws-dataInjector" src="/public/dhws-data-injector.js"></script>
+</body>
+</html>

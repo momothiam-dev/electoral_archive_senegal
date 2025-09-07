@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Résultats Électoraux Détaillés - Archives Électorales Sénégal</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Felectoral1443back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Header Navigation -->
+    <header class="bg-surface shadow-card border-b border-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-10 w-10 text-primary" viewBox="0 0 40 40" fill="currentColor">
+                            <rect x="2" y="8" width="36" height="24" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <rect x="6" y="12" width="8" height="4" fill="currentColor"/>
+                            <rect x="16" y="12" width="8" height="4" fill="currentColor"/>
+                            <rect x="26" y="12" width="8" height="4" fill="currentColor"/>
+                            <rect x="6" y="18" width="28" height="2" fill="currentColor"/>
+                            <rect x="6" y="22" width="20" height="2" fill="currentColor"/>
+                            <circle cx="32" cy="23" r="2" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h1 class="text-xl font-heading font-bold text-textPrimary">Archives Électorales</h1>
+                        <p class="text-sm text-textSecondary">République du Sénégal</p>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="electoral_data_dashboard.html" class="text-textSecondary hover:text-primary transition-micro">Tableau de Bord</a>
+                    <a href="advanced_electoral_search.html" class="text-textSecondary hover:text-primary transition-micro">Recherche Avancée</a>
+                    <a href="election_results_detail.html" class="text-primary font-semibold border-b-2 border-primary pb-1">Résultats</a>
+                    <a href="candidate_profile.html" class="text-textSecondary hover:text-primary transition-micro">Candidats</a>
+                    <a href="electoral_map_viewer.html" class="text-textSecondary hover:text-primary transition-micro">Carte Électorale</a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button type="button" class="text-textSecondary hover:text-primary p-2" onclick="toggleMobileMenu()">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="hidden md:hidden pb-4">
+                <div class="space-y-2">
+                    <a href="electoral_data_dashboard.html" class="block px-3 py-2 text-textSecondary hover:text-primary hover:bg-gray-50 rounded-md transition-micro">Tableau de Bord</a>
+                    <a href="advanced_electoral_search.html" class="block px-3 py-2 text-textSecondary hover:text-primary hover:bg-gray-50 rounded-md transition-micro">Recherche Avancée</a>
+                    <a href="election_results_detail.html" class="block px-3 py-2 text-primary font-semibold bg-primary-50 rounded-md">Résultats</a>
+                    <a href="candidate_profile.html" class="block px-3 py-2 text-textSecondary hover:text-primary hover:bg-gray-50 rounded-md transition-micro">Candidats</a>
+                    <a href="electoral_map_viewer.html" class="block px-3 py-2 text-textSecondary hover:text-primary hover:bg-gray-50 rounded-md transition-micro">Carte Électorale</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb mb-6">
+            <a href="electoral_data_dashboard.html">Tableau de Bord</a>
+            <span>/</span>
+            <a href="advanced_electoral_search.html">Recherche</a>
+            <span>/</span>
+            <span class="text-textPrimary">Résultats Détaillés</span>
+        </nav>
+
+        <!-- Election Header -->
+        <div class="card p-6 mb-8">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
+                <div>
+                    <h2 class="text-3xl font-heading font-bold text-textPrimary mb-2">Élection Présidentielle 2024</h2>
+                    <div class="flex flex-wrap items-center gap-4 text-sm text-textSecondary">
+                        <span class="flex items-center">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 0V6a2 2 0 012-2h4a2 2 0 012 2v1m-6 0h8m-9 0a1 1 0 00-1 1v10a1 1 0 001 1h10a1 1 0 001-1V8a1 1 0 00-1-1H7z"/>
+                            </svg>
+                            24 Mars 2024
+                        </span>
+                        <span class="flex items-center">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            National
+                        </span>
+                        <span class="flex items-center">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
+                            </svg>
+                            19 Candidats
+                        </span>
+                    </div>
+                </div>
+                <div class="mt-4 lg:mt-0 flex space-x-3">
+                    <button class="btn-primary flex items-center">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"/>
+                        </svg>
+                        Partager
+                    </button>
+                    <button class="btn-secondary flex items-center">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        Exporter
+                    </button>
+                </div>
+            </div>
+
+            <!-- Key Metrics -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="text-center p-4 bg-primary-50 rounded-lg">
+                    <div class="text-2xl font-bold text-primary mb-1">76,28%</div>
+                    <div class="text-sm text-textSecondary">Taux de Participation</div>
+                </div>
+                <div class="text-center p-4 bg-secondary-50 rounded-lg">
+                    <div class="text-2xl font-bold text-secondary mb-1">7 234 567</div>
+                    <div class="text-sm text-textSecondary">Électeurs Inscrits</div>
+                </div>
+                <div class="text-center p-4 bg-accent-50 rounded-lg">
+                    <div class="text-2xl font-bold text-accent mb-1">5 518 923</div>
+                    <div class="text-sm text-textSecondary">Votes Exprimés</div>
+                </div>
+                <div class="text-center p-4 bg-warning/20 rounded-lg">
+                    <div class="text-2xl font-bold text-warning mb-1">2,1%</div>
+                    <div class="text-sm text-textSecondary">Votes Invalides</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+            <!-- Main Results Section -->
+            <div class="xl:col-span-2 space-y-8">
+                <!-- Candidate Results Table -->
+                <div class="card p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-heading font-bold text-textPrimary">Résultats par Candidat</h3>
+                        <div class="flex space-x-2">
+                            <button class="px-3 py-1 text-sm bg-primary text-white rounded-md">Votes</button>
+                            <button class="px-3 py-1 text-sm text-textSecondary hover:bg-gray-100 rounded-md transition-micro">Pourcentages</button>
+                            <button class="px-3 py-1 text-sm text-textSecondary hover:bg-gray-100 rounded-md transition-micro">Régions</button>
+                        </div>
+                    </div>
+
+                    <!-- Desktop Table -->
+                    <div class="hidden md:block overflow-x-auto">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th class="text-left">Rang</th>
+                                    <th class="text-left">Candidat</th>
+                                    <th class="text-left">Parti</th>
+                                    <th class="text-right">Votes</th>
+                                    <th class="text-right">Pourcentage</th>
+                                    <th class="text-center">Statut</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-primary-50">
+                                    <td class="font-bold text-primary">1</td>
+                                    <td>
+                                        <div class="flex items-center">
+                                            <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop" alt="Bassirou Diomaye Faye" class="w-10 h-10 rounded-full mr-3 object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                            <div>
+                                                <div class="font-semibold text-textPrimary">Bassirou Diomaye Faye</div>
+                                                <div class="text-sm text-textSecondary">PASTEF</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-textSecondary">PASTEF</td>
+                                    <td class="text-right font-data font-semibold">2 427 642</td>
+                                    <td class="text-right font-bold text-primary">54,28%</td>
+                                    <td class="text-center">
+                                        <span class="status-success">Élu</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold">2</td>
+                                    <td>
+                                        <div class="flex items-center">
+                                            <img src="https://images.pixabay.com/photo/2016/11/21/12/42/beard-1845166_960_720.jpg" alt="Amadou Ba" class="w-10 h-10 rounded-full mr-3 object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                            <div>
+                                                <div class="font-semibold text-textPrimary">Amadou Ba</div>
+                                                <div class="text-sm text-textSecondary">APR</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-textSecondary">APR</td>
+                                    <td class="text-right font-data">1 603 362</td>
+                                    <td class="text-right font-semibold">35,79%</td>
+                                    <td class="text-center">
+                                        <span class="px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-full">2ème</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold">3</td>
+                                    <td>
+                                        <div class="flex items-center">
+                                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" alt="Aliou Mamadou Dia" class="w-10 h-10 rounded-full mr-3 object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                            <div>
+                                                <div class="font-semibold text-textPrimary">Aliou Mamadou Dia</div>
+                                                <div class="text-sm text-textSecondary">PDS</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-textSecondary">PDS</td>
+                                    <td class="text-right font-data">186 567</td>
+                                    <td class="text-right font-semibold">4,16%</td>
+                                    <td class="text-center">
+                                        <span class="px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-full">3ème</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold">4</td>
+                                    <td>
+                                        <div class="flex items-center">
+                                            <img src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop" alt="Khalifa Sall" class="w-10 h-10 rounded-full mr-3 object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                            <div>
+                                                <div class="font-semibold text-textPrimary">Khalifa Sall</div>
+                                                <div class="text-sm text-textSecondary">Taxawu</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-textSecondary">Taxawu</td>
+                                    <td class="text-right font-data">156 789</td>
+                                    <td class="text-right font-semibold">3,50%</td>
+                                    <td class="text-center">
+                                        <span class="px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-full">4ème</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold">5</td>
+                                    <td>
+                                        <div class="flex items-center">
+                                            <img src="https://images.pixabay.com/photo/2014/04/12/14/59/portrait-322470_960_720.jpg" alt="Idrissa Seck" class="w-10 h-10 rounded-full mr-3 object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                            <div>
+                                                <div class="font-semibold text-textPrimary">Idrissa Seck</div>
+                                                <div class="text-sm text-textSecondary">Rewmi</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-textSecondary">Rewmi</td>
+                                    <td class="text-right font-data">98 234</td>
+                                    <td class="text-right font-semibold">2,19%</td>
+                                    <td class="text-center">
+                                        <span class="px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-full">5ème</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Mobile Cards -->
+                    <div class="md:hidden space-y-4">
+                        <div class="p-4 bg-primary-50 rounded-lg border-l-4 border-primary">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center">
+                                    <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop" alt="Bassirou Diomaye Faye" class="w-10 h-10 rounded-full mr-3 object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                    <div>
+                                        <div class="font-semibold text-textPrimary">Bassirou Diomaye Faye</div>
+                                        <div class="text-sm text-textSecondary">PASTEF</div>
+                                    </div>
+                                </div>
+                                <span class="status-success">Élu</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-textSecondary">Votes:</span>
+                                <span class="font-data font-semibold">2 427 642</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-textSecondary">Pourcentage:</span>
+                                <span class="font-bold text-primary">54,28%</span>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-gray-50 rounded-lg">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center">
+                                    <img src="https://images.pixabay.com/photo/2016/11/21/12/42/beard-1845166_960_720.jpg" alt="Amadou Ba" class="w-10 h-10 rounded-full mr-3 object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                    <div>
+                                        <div class="font-semibold text-textPrimary">Amadou Ba</div>
+                                        <div class="text-sm text-textSecondary">APR</div>
+                                    </div>
+                                </div>
+                                <span class="px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-full">2ème</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-textSecondary">Votes:</span>
+                                <span class="font-data">1 603 362</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-textSecondary">Pourcentage:</span>
+                                <span class="font-semibold">35,79%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 text-center">
+                        <button class="text-primary hover:text-primary-700 text-sm font-medium">
+                            Voir tous les candidats (14 autres) →
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Interactive Charts -->
+                <div class="card p-6">
+                    <h3 class="text-xl font-heading font-bold text-textPrimary mb-6">Visualisations</h3>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- Vote Distribution Chart -->
+                        <div>
+                            <h4 class="font-semibold text-textPrimary mb-4">Distribution des Votes</h4>
+                            <div class="relative h-64 bg-gray-50 rounded-lg flex items-center justify-center">
+                                <svg class="w-48 h-48" viewBox="0 0 200 200">
+                                    <!-- Pie Chart Segments -->
+                                    <circle cx="100" cy="100" r="80" fill="none" stroke="#1E40AF" stroke-width="20" stroke-dasharray="271.3 500" stroke-dashoffset="0" transform="rotate(-90 100 100)"/>
+                                    <circle cx="100" cy="100" r="80" fill="none" stroke="#059669" stroke-width="20" stroke-dasharray="179.2 500" stroke-dashoffset="-271.3" transform="rotate(-90 100 100)"/>
+                                    <circle cx="100" cy="100" r="80" fill="none" stroke="#DC2626" stroke-width="20" stroke-dasharray="20.8 500" stroke-dashoffset="-450.5" transform="rotate(-90 100 100)"/>
+                                    <circle cx="100" cy="100" r="80" fill="none" stroke="#F59E0B" stroke-width="20" stroke-dasharray="28.7 500" stroke-dashoffset="-471.3" transform="rotate(-90 100 100)"/>
+                                    
+                                    <!-- Center Text -->
+                                    <text x="100" y="95" text-anchor="middle" class="text-sm font-semibold fill-textPrimary">Total</text>
+                                    <text x="100" y="110" text-anchor="middle" class="text-xs fill-textSecondary">5,5M votes</text>
+                                </svg>
+                            </div>
+                            <div class="mt-4 space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="w-3 h-3 bg-primary rounded-full mr-2"></div>
+                                        <span class="text-sm text-textSecondary">B. D. Faye</span>
+                                    </div>
+                                    <span class="text-sm font-semibold">54,28%</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="w-3 h-3 bg-secondary rounded-full mr-2"></div>
+                                        <span class="text-sm text-textSecondary">A. Ba</span>
+                                    </div>
+                                    <span class="text-sm font-semibold">35,79%</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="w-3 h-3 bg-accent rounded-full mr-2"></div>
+                                        <span class="text-sm text-textSecondary">A. M. Dia</span>
+                                    </div>
+                                    <span class="text-sm font-semibold">4,16%</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="w-3 h-3 bg-warning rounded-full mr-2"></div>
+                                        <span class="text-sm text-textSecondary">Autres</span>
+                                    </div>
+                                    <span class="text-sm font-semibold">5,77%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Turnout by Region -->
+                        <div>
+                            <h4 class="font-semibold text-textPrimary mb-4">Participation par Région</h4>
+                            <div class="space-y-3">
+                                <div>
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span class="text-textSecondary">Dakar</span>
+                                        <span class="font-semibold">82,4%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-primary h-2 rounded-full" style="width: 82.4%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span class="text-textSecondary">Thiès</span>
+                                        <span class="font-semibold">78,9%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-secondary h-2 rounded-full" style="width: 78.9%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span class="text-textSecondary">Diourbel</span>
+                                        <span class="font-semibold">74,2%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-accent h-2 rounded-full" style="width: 74.2%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span class="text-textSecondary">Saint-Louis</span>
+                                        <span class="font-semibold">71,8%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-warning h-2 rounded-full" style="width: 71.8%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span class="text-textSecondary">Kaolack</span>
+                                        <span class="font-semibold">69,5%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-gray-400 h-2 rounded-full" style="width: 69.5%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Historical Comparison -->
+                <div class="card p-6">
+                    <h3 class="text-xl font-heading font-bold text-textPrimary mb-6">Comparaison Historique</h3>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Année</th>
+                                    <th>Participation</th>
+                                    <th>Candidats</th>
+                                    <th>Vainqueur</th>
+                                    <th>Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-primary-50">
+                                    <td class="font-semibold text-primary">2024</td>
+                                    <td>76,28%</td>
+                                    <td>19</td>
+                                    <td>B. D. Faye</td>
+                                    <td class="font-semibold">54,28%</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold">2019</td>
+                                    <td>66,27%</td>
+                                    <td>5</td>
+                                    <td>M. Sall</td>
+                                    <td class="font-semibold">58,27%</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold">2012</td>
+                                    <td>55,42%</td>
+                                    <td>14</td>
+                                    <td>M. Sall</td>
+                                    <td class="font-semibold">65,80%</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold">2007</td>
+                                    <td>70,63%</td>
+                                    <td>15</td>
+                                    <td>A. Wade</td>
+                                    <td class="font-semibold">55,90%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                <!-- Detailed Statistics -->
+                <div class="card p-6">
+                    <h3 class="text-lg font-heading font-bold text-textPrimary mb-4">Statistiques Détaillées</h3>
+                    <div class="space-y-4">
+                        <div class="border-b border-border pb-3">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm text-textSecondary">Bureaux de Vote</span>
+                                <button class="text-xs text-primary hover:text-primary-700">Détails</button>
+                            </div>
+                            <div class="text-lg font-semibold text-textPrimary">15 847</div>
+                        </div>
+                        
+                        <div class="border-b border-border pb-3">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm text-textSecondary">Votes Blancs</span>
+                                <button class="text-xs text-primary hover:text-primary-700">Détails</button>
+                            </div>
+                            <div class="text-lg font-semibold text-textPrimary">89 234 (1,6%)</div>
+                        </div>
+                        
+                        <div class="border-b border-border pb-3">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm text-textSecondary">Votes Nuls</span>
+                                <button class="text-xs text-primary hover:text-primary-700">Détails</button>
+                            </div>
+                            <div class="text-lg font-semibold text-textPrimary">27 456 (0,5%)</div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm text-textSecondary">Incidents Signalés</span>
+                                <button class="text-xs text-primary hover:text-primary-700">Rapport</button>
+                            </div>
+                            <div class="text-lg font-semibold text-textPrimary">12</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Documents & Reports -->
+                <div class="card p-6">
+                    <h3 class="text-lg font-heading font-bold text-textPrimary mb-4">Documents Officiels</h3>
+                    <div class="space-y-3">
+                        <a href="javascript:void(0)" class="flex items-center p-3 bg-primary-50 hover:bg-primary-100 rounded-lg transition-micro group">
+                            <svg class="w-5 h-5 text-primary mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                            <div>
+                                <div class="text-sm font-medium text-primary group-hover:text-primary-700">Procès-Verbal Officiel</div>
+                                <div class="text-xs text-textSecondary">PDF • 2,4 MB</div>
+                            </div>
+                        </a>
+                        
+                        <a href="javascript:void(0)" class="flex items-center p-3 bg-secondary-50 hover:bg-secondary-100 rounded-lg transition-micro group">
+                            <svg class="w-5 h-5 text-secondary mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/>
+                            </svg>
+                            <div>
+                                <div class="text-sm font-medium text-secondary group-hover:text-secondary-700">Données Statistiques</div>
+                                <div class="text-xs text-textSecondary">Excel • 856 KB</div>
+                            </div>
+                        </a>
+                        
+                        <a href="javascript:void(0)" class="flex items-center p-3 bg-accent-50 hover:bg-accent-100 rounded-lg transition-micro group">
+                            <svg class="w-5 h-5 text-accent mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                            </svg>
+                            <div>
+                                <div class="text-sm font-medium text-accent group-hover:text-accent-700">Vidéo Proclamation</div>
+                                <div class="text-xs text-textSecondary">MP4 • 45 MB</div>
+                            </div>
+                        </a>
+                        
+                        <a href="javascript:void(0)" class="flex items-center p-3 bg-warning/20 hover:bg-warning/30 rounded-lg transition-micro group">
+                            <svg class="w-5 h-5 text-warning mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                            </svg>
+                            <div>
+                                <div class="text-sm font-medium text-warning group-hover:text-warning-700">Liste Candidats</div>
+                                <div class="text-xs text-textSecondary">PDF • 1,2 MB</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="card p-6">
+                    <h3 class="text-lg font-heading font-bold text-textPrimary mb-4">Actions Rapides</h3>
+                    <div class="space-y-3">
+                        <button class="w-full flex items-center justify-center p-3 bg-primary text-white rounded-lg hover:bg-primary-700 transition-micro">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                            </svg>
+                            Comparer Élections
+                        </button>
+                        
+                        <a href="candidate_profile.html" class="w-full flex items-center justify-center p-3 bg-secondary text-white rounded-lg hover:bg-secondary-700 transition-micro">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                            </svg>
+                            Profils Candidats
+                        </a>
+                        
+                        <a href="electoral_map_viewer.html" class="w-full flex items-center justify-center p-3 bg-accent text-white rounded-lg hover:bg-accent-700 transition-micro">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                            </svg>
+                            Carte Électorale
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Citation Generator -->
+                <div class="card p-6">
+                    <h3 class="text-lg font-heading font-bold text-textPrimary mb-4">Citation Académique</h3>
+                    <div class="bg-gray-50 p-4 rounded-lg text-sm text-textSecondary font-data">
+                        Commission Électorale Nationale Autonome. (2024). <em>Résultats de l'élection présidentielle du 24 mars 2024</em>. Archives Électorales du Sénégal. Consulté le 07 septembre 2025.
+                    </div>
+                    <button class="mt-3 w-full btn-secondary text-sm">
+                        Copier Citation
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface border-t border-border mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <svg class="h-8 w-8 text-primary mr-2" viewBox="0 0 40 40" fill="currentColor">
+                            <rect x="2" y="8" width="36" height="24" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <rect x="6" y="12" width="8" height="4" fill="currentColor"/>
+                            <rect x="16" y="12" width="8" height="4" fill="currentColor"/>
+                            <rect x="26" y="12" width="8" height="4" fill="currentColor"/>
+                            <rect x="6" y="18" width="28" height="2" fill="currentColor"/>
+                            <rect x="6" y="22" width="20" height="2" fill="currentColor"/>
+                            <circle cx="32" cy="23" r="2" fill="currentColor"/>
+                        </svg>
+                        <span class="font-heading font-bold text-textPrimary">Archives Électorales</span>
+                    </div>
+                    <p class="text-sm text-textSecondary">
+                        Plateforme officielle des archives électorales de la République du Sénégal.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-textPrimary mb-4">Liens Utiles</h4>
+                    <ul class="space-y-2 text-sm text-textSecondary">
+                        <li><a href="javascript:void(0)" class="hover:text-primary transition-micro">Commission Électorale</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-primary transition-micro">Lois Électorales</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-primary transition-micro">Guide d'Utilisation</a></li>
+                        <li><a href="javascript:void(0)" class="hover:text-primary transition-micro">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-textPrimary mb-4">Informations</h4>
+                    <ul class="space-y-2 text-sm text-textSecondary">
+                        <li>République du Sénégal</li>
+                        <li>Ministère de l'Intérieur</li>
+                        <li>Direction Générale des Élections</li>
+                        <li>© 2025 Tous droits réservés</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Add fade-in animation to cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 100}ms`;
+                card.classList.add('fade-in');
+            });
+        });
+
+        // Interactive chart hover effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const chartSegments = document.querySelectorAll('circle[stroke-dasharray]');
+            chartSegments.forEach(segment => {
+                segment.addEventListener('mouseenter', function() {
+                    this.style.strokeWidth = '25';
+                    this.style.transition = 'stroke-width 0.2s ease';
+                });
+                segment.addEventListener('mouseleave', function() {
+                    this.style.strokeWidth = '20';
+                });
+            });
+        });
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>

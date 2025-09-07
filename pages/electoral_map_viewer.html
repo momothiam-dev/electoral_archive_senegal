@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visualiseur de Carte Électorale - Archives Électorales Sénégal</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Felectoral1443back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Header Navigation -->
+    <header class="bg-surface shadow-card border-b border-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-10 w-10 text-primary" viewBox="0 0 40 40" fill="currentColor">
+                            <rect x="2" y="8" width="36" height="24" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <rect x="6" y="12" width="8" height="4" fill="currentColor"/>
+                            <rect x="16" y="12" width="8" height="4" fill="currentColor"/>
+                            <rect x="26" y="12" width="8" height="4" fill="currentColor"/>
+                            <rect x="6" y="18" width="28" height="2" fill="currentColor"/>
+                            <rect x="6" y="22" width="20" height="2" fill="currentColor"/>
+                            <circle cx="32" cy="23" r="2" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h1 class="text-xl font-heading font-bold text-textPrimary">Archives Électorales</h1>
+                        <p class="text-sm text-textSecondary">République du Sénégal</p>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="electoral_data_dashboard.html" class="text-textSecondary hover:text-primary transition-micro">Tableau de Bord</a>
+                    <a href="advanced_electoral_search.html" class="text-textSecondary hover:text-primary transition-micro">Recherche Avancée</a>
+                    <a href="election_results_detail.html" class="text-textSecondary hover:text-primary transition-micro">Résultats</a>
+                    <a href="candidate_profile.html" class="text-textSecondary hover:text-primary transition-micro">Candidats</a>
+                    <a href="electoral_map_viewer.html" class="text-primary font-semibold border-b-2 border-primary pb-1">Carte Électorale</a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button type="button" class="text-textSecondary hover:text-primary p-2" onclick="toggleMobileMenu()">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="hidden md:hidden pb-4">
+                <div class="space-y-2">
+                    <a href="electoral_data_dashboard.html" class="block px-3 py-2 text-textSecondary hover:text-primary hover:bg-gray-50 rounded-md transition-micro">Tableau de Bord</a>
+                    <a href="advanced_electoral_search.html" class="block px-3 py-2 text-textSecondary hover:text-primary hover:bg-gray-50 rounded-md transition-micro">Recherche Avancée</a>
+                    <a href="election_results_detail.html" class="block px-3 py-2 text-textSecondary hover:text-primary hover:bg-gray-50 rounded-md transition-micro">Résultats</a>
+                    <a href="candidate_profile.html" class="block px-3 py-2 text-textSecondary hover:text-primary hover:bg-gray-50 rounded-md transition-micro">Candidats</a>
+                    <a href="electoral_map_viewer.html" class="block px-3 py-2 text-primary font-semibold bg-primary-50 rounded-md">Carte Électorale</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-screen">
+        <!-- Map Controls Header -->
+        <div class="bg-surface border-b border-border px-4 sm:px-6 lg:px-8 py-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                    <!-- Page Title -->
+                    <div>
+                        <h2 class="text-2xl font-heading font-bold text-textPrimary">Carte Électorale Interactive</h2>
+                        <p class="text-sm text-textSecondary">Visualisation géographique des données électorales du Sénégal</p>
+                    </div>
+
+                    <!-- Control Panel -->
+                    <div class="flex flex-wrap items-center gap-3">
+                        <!-- Search Box -->
+                        <div class="relative">
+                            <input type="text" id="map-search" placeholder="Rechercher une région..." class="input-field w-64 pl-10 pr-4 py-2 text-sm" onkeyup="searchLocation(this.value)" />
+                            <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-textSecondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            </svg>
+                        </div>
+
+                        <!-- Year Selector -->
+                        <select id="year-selector" class="input-field text-sm" onchange="updateMapData()">
+                            <option value="2024">2024</option>
+                            <option value="2022">2022</option>
+                            <option value="2019">2019</option>
+                            <option value="2017">2017</option>
+                        </select>
+
+                        <!-- Data Type Selector -->
+                        <select id="data-type" class="input-field text-sm" onchange="updateMapVisualization()">
+                            <option value="turnout">Taux de Participation</option>
+                            <option value="winner">Parti Gagnant</option>
+                            <option value="registration">Inscription Électorale</option>
+                            <option value="demographics">Données Démographiques</option>
+                        </select>
+
+                        <!-- Export Button -->
+                        <button class="btn-primary text-sm flex items-center" onclick="exportMap()">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                            Exporter
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map Container -->
+        <div class="flex-1 flex">
+            <!-- Map Area -->
+            <div class="flex-1 relative bg-blue-50">
+                <!-- Map SVG -->
+                <div id="map-container" class="w-full h-full relative overflow-hidden">
+                    <svg id="senegal-map" viewBox="0 0 800 600" class="w-full h-full cursor-move" onmousedown="startPan(event)" onmousemove="pan(event)" onmouseup="endPan()" onwheel="zoom(event)">
+                        <!-- Map Background -->
+                        <rect width="800" height="600" fill="#E0F2FE"/>
+                        
+                        <!-- Senegal Regions -->
+                        <!-- Dakar Region -->
+                        <path id="dakar" d="M 120 320 L 140 310 L 160 320 L 150 340 L 130 335 Z" fill="#1E40AF" stroke="#FFFFFF" stroke-width="2" class="region-path cursor-pointer hover:opacity-80 transition-micro" onclick="showRegionDetails('dakar')" data-region="Dakar" data-turnout="76.8" data-winner="BBY" data-population="3500000">
+                        </path>
+                        
+                        <!-- Thiès Region -->
+                        <path id="thies" d="M 100 280 L 180 270 L 190 310 L 120 320 L 100 300 Z" fill="#2563EB" stroke="#FFFFFF" stroke-width="2" class="region-path cursor-pointer hover:opacity-80 transition-micro" onclick="showRegionDetails('thies')" data-region="Thiès" data-turnout="68.4" data-winner="BBY" data-population="1950000">
+                        </path>
+                        
+                        <!-- Diourbel Region -->
+                        <path id="diourbel" d="M 180 270 L 240 260 L 250 300 L 190 310 Z" fill="#3B82F6" stroke="#FFFFFF" stroke-width="2" class="region-path cursor-pointer hover:opacity-80 transition-micro" onclick="showRegionDetails('diourbel')" data-region="Diourbel" data-turnout="72.1" data-winner="BBY" data-population="1670000">
+                        </path>
+                        
+                        <!-- Fatick Region -->
+                        <path id="fatick" d="M 190 310 L 250 300 L 260 340 L 200 350 Z" fill="#60A5FA" stroke="#FFFFFF" stroke-width="2" class="region-path cursor-pointer hover:opacity-80 transition-micro" onclick="showRegionDetails('fatick')" data-region="Fatick" data-turnout="65.3" data-winner="BBY" data-population="785000">
+                        </path>
+                        
+                        <!-- Kaolack Region -->
+                        <path id="kaolack" d="M 250 300 L 320 290 L 330 330 L 260 340 Z" fill="#93C5FD" stroke="#FFFFFF" stroke-width="2" class="region-path cursor-pointer hover:opacity-80 transition-micro" onclick="showRegionDetails('kaolack')" data-region="Kaolack" data-turnout="69.7" data-winner="BBY" data-population="960000">
+                        </path>
+                        
+                        <!-- Kaffrine Region -->
+                        <path id="kaffrine" d="M 320 290 L 380 280 L 390 320 L 330 330 Z" fill="#BFDBFE" stroke="#FFFFFF" stroke-width="2" class="region-path cursor-pointer hover:opacity-80 transition-micro" onclick="showRegionDetails('kaffrine')" data-region="Kaffrine" data-turnout="71.2" data-winner="BBY" data-population="595000">
+                        </path>
+                        
+                        <!-- Tambacounda Region -->
+                        <path id="tambacounda" d="M 450 200 L 550 190 L 560 280 L 450 290 Z" fill="#059669" stroke="#FFFFFF" stroke-width="2" class="region-path cursor-pointer hover:opacity-80 transition-micro" onclick="showRegionDetails('tambacounda')" data-region="Tambacounda" data-turnout="58.9" data-winner="PASTEF" data-population="695000">
+                        </path>
+                        
+                        <!-- Kédougou Region -->
+                        <path id="kedougou" d="M 550 190 L 620 180 L 630 250 L 560 280 Z" fill="#10B981" stroke="#FFFFFF" stroke-width="2" class="region-path cursor-pointer hover:opacity-80 transition-micro" onclick="showRegionDetails('kedougou')" data-region="Kédougou" data-turnout="62.4" data-winner="PASTEF" data-population="201000">
+                        </path>
+                        
+                        <!-- Kolda Region -->
+                        <path id="kolda" d="M 380 350 L 480 340 L 490 400 L 390 410 Z" fill="#34D399" stroke="#FFFFFF" stroke-width="2" class="region-path cursor-pointer hover:opacity-80 transition-micro" onclick="showRegionDetails('kolda')" data-region="Kolda" data-turnout="64.7" data-winner="PASTEF" data-population="715000">
+                        </path>
+                        
+                        <!-- Sédhiou Region -->
+                        <path id="sedhiou" d="M 300 380 L 380 350 L 390 410 L 310 420 Z" fill="#6EE7B7" stroke="#FFFFFF" stroke-width="2" class="region-path cursor-pointer hover:opacity-80 transition-micro" onclick="showRegionDetails('sedhiou')" data-region="Sédhiou" data-turnout="67.1" data-winner="PASTEF" data-population="540000">
+                        </path>
+                        
+                        <!-- Ziguinchor Region -->
+                        <path id="ziguinchor" d="M 200 420 L 310 420 L 320 480 L 210 490 Z" fill="#A7F3D0" stroke="#FFFFFF" stroke-width="2" class="region-path cursor-pointer hover:opacity-80 transition-micro" onclick="showRegionDetails('ziguinchor')" data-region="Ziguinchor" data-turnout="61.8" data-winner="PASTEF" data-population="610000">
+                        </path>
+                        
+                        <!-- Saint-Louis Region -->
+                        <path id="saint-louis" d="M 180 120 L 280 110 L 290 180 L 180 190 Z" fill="#DC2626" stroke="#FFFFFF" stroke-width="2" class="region-path cursor-pointer hover:opacity-80 transition-micro" onclick="showRegionDetails('saint-louis')" data-region="Saint-Louis" data-turnout="73.5" data-winner="APR" data-population="1030000">
+                        </path>
+                        
+                        <!-- Louga Region -->
+                        <path id="louga" d="M 180 190 L 290 180 L 300 240 L 180 250 Z" fill="#EF4444" stroke="#FFFFFF" stroke-width="2" class="region-path cursor-pointer hover:opacity-80 transition-micro" onclick="showRegionDetails('louga')" data-region="Louga" data-turnout="70.3" data-winner="APR" data-population="875000">
+                        </path>
+                        
+                        <!-- Matam Region -->
+                        <path id="matam" d="M 350 140 L 450 130 L 460 200 L 350 210 Z" fill="#F87171" stroke="#FFFFFF" stroke-width="2" class="region-path cursor-pointer hover:opacity-80 transition-micro" onclick="showRegionDetails('matam')" data-region="Matam" data-turnout="66.9" data-winner="APR" data-population="610000">
+                        </path>
+
+                        <!-- Region Labels -->
+                        <text x="140" y="325" text-anchor="middle" class="text-xs font-semibold fill-white">Dakar</text>
+                        <text x="140" y="290" text-anchor="middle" class="text-xs font-semibold fill-white">Thiès</text>
+                        <text x="215" y="285" text-anchor="middle" class="text-xs font-semibold fill-white">Diourbel</text>
+                        <text x="225" y="330" text-anchor="middle" class="text-xs font-semibold fill-white">Fatick</text>
+                        <text x="285" y="315" text-anchor="middle" class="text-xs font-semibold fill-white">Kaolack</text>
+                        <text x="355" y="305" text-anchor="middle" class="text-xs font-semibold fill-white">Kaffrine</text>
+                        <text x="500" y="240" text-anchor="middle" class="text-xs font-semibold fill-white">Tambacounda</text>
+                        <text x="590" y="215" text-anchor="middle" class="text-xs font-semibold fill-white">Kédougou</text>
+                        <text x="435" y="375" text-anchor="middle" class="text-xs font-semibold fill-white">Kolda</text>
+                        <text x="345" y="385" text-anchor="middle" class="text-xs font-semibold fill-white">Sédhiou</text>
+                        <text x="255" y="455" text-anchor="middle" class="text-xs font-semibold fill-white">Ziguinchor</text>
+                        <text x="230" y="150" text-anchor="middle" class="text-xs font-semibold fill-white">Saint-Louis</text>
+                        <text x="240" y="220" text-anchor="middle" class="text-xs font-semibold fill-white">Louga</text>
+                        <text x="400" y="170" text-anchor="middle" class="text-xs font-semibold fill-white">Matam</text>
+                    </svg>
+
+                    <!-- Zoom Controls -->
+                    <div class="absolute top-4 right-4 flex flex-col space-y-2">
+                        <button class="w-10 h-10 bg-surface shadow-card rounded-md flex items-center justify-center hover:bg-gray-50 transition-micro" onclick="zoomIn()">
+                            <svg class="w-5 h-5 text-textPrimary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                            </svg>
+                        </button>
+                        <button class="w-10 h-10 bg-surface shadow-card rounded-md flex items-center justify-center hover:bg-gray-50 transition-micro" onclick="zoomOut()">
+                            <svg class="w-5 h-5 text-textPrimary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6"/>
+                            </svg>
+                        </button>
+                        <button class="w-10 h-10 bg-surface shadow-card rounded-md flex items-center justify-center hover:bg-gray-50 transition-micro" onclick="resetZoom()">
+                            <svg class="w-5 h-5 text-textPrimary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Loading Overlay -->
+                    <div id="map-loading" class="absolute inset-0 bg-surface bg-opacity-75 flex items-center justify-center hidden">
+                        <div class="text-center">
+                            <div class="loading-spinner mx-auto mb-4"></div>
+                            <p class="text-textSecondary">Chargement des données...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Side Panel -->
+            <div id="side-panel" class="w-80 bg-surface border-l border-border flex flex-col">
+                <!-- Panel Header -->
+                <div class="p-4 border-b border-border">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-lg font-heading font-bold text-textPrimary">Informations</h3>
+                        <button class="lg:hidden text-textSecondary hover:text-primary" onclick="toggleSidePanel()">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Legend -->
+                <div class="p-4 border-b border-border">
+                    <h4 class="font-semibold text-textPrimary mb-3">Légende</h4>
+                    <div class="space-y-2">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-4 h-4 bg-primary rounded"></div>
+                            <span class="text-sm text-textSecondary">BBY (75-80%)</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-4 h-4 bg-secondary rounded"></div>
+                            <span class="text-sm text-textSecondary">PASTEF (60-75%)</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-4 h-4 bg-accent rounded"></div>
+                            <span class="text-sm text-textSecondary">APR (65-75%)</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-4 h-4 bg-warning rounded"></div>
+                            <span class="text-sm text-textSecondary">Autres (50-65%)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Layer Controls -->
+                <div class="p-4 border-b border-border">
+                    <h4 class="font-semibold text-textPrimary mb-3">Couches de Données</h4>
+                    <div class="space-y-3">
+                        <label class="flex items-center">
+                            <input type="checkbox" checked class="mr-3" onchange="toggleLayer('regions')" />
+                            <span class="text-sm text-textSecondary">Régions</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-3" onchange="toggleLayer('departments')" />
+                            <span class="text-sm text-textSecondary">Départements</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-3" onchange="toggleLayer('communes')" />
+                            <span class="text-sm text-textSecondary">Communes</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-3" onchange="toggleLayer('polling-stations')" />
+                            <span class="text-sm text-textSecondary">Bureaux de Vote</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Region Details -->
+                <div id="region-details" class="flex-1 p-4 overflow-y-auto">
+                    <div class="text-center text-textSecondary py-8">
+                        <svg class="w-12 h-12 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                        </svg>
+                        <p class="text-sm">Cliquez sur une région pour voir les détails</p>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="p-4 border-t border-border bg-gray-50">
+                    <h4 class="font-semibold text-textPrimary mb-3">Statistiques Rapides</h4>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="text-center">
+                            <p class="text-lg font-bold text-primary">14</p>
+                            <p class="text-xs text-textSecondary">Régions</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-lg font-bold text-secondary">45</p>
+                            <p class="text-xs text-textSecondary">Départements</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-lg font-bold text-accent">557</p>
+                            <p class="text-xs text-textSecondary">Communes</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-lg font-bold text-warning">15,847</p>
+                            <p class="text-xs text-textSecondary">Bureaux</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Region Details Modal -->
+    <div id="region-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+        <div class="modal max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 id="modal-title" class="text-xl font-heading font-bold text-textPrimary">Détails de la Région</h3>
+                    <button onclick="closeModal()" class="text-textSecondary hover:text-primary">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div id="modal-content" class="space-y-6">
+                    <!-- Content will be populated by JavaScript -->
+                </div>
+                
+                <div class="flex justify-end space-x-3 mt-6 pt-4 border-t border-border">
+                    <button onclick="closeModal()" class="btn-secondary">Fermer</button>
+                    <a href="election_results_detail.html" class="btn-primary">Voir Résultats Détaillés</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Suggestions -->
+    <div id="search-suggestions" class="absolute top-full left-0 right-0 bg-surface border border-border rounded-md shadow-modal mt-1 hidden z-10">
+        <!-- Populated by JavaScript -->
+    </div>
+
+    <script>
+        let currentZoom = 1;
+        let isPanning = false;
+        let panStart = { x: 0, y: 0 };
+        let currentTransform = { x: 0, y: 0 };
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function toggleSidePanel() {
+            const panel = document.getElementById('side-panel');
+            panel.classList.toggle('hidden');
+        }
+
+        function searchLocation(query) {
+            const suggestions = document.getElementById('search-suggestions');
+            
+            if (query.length < 2) {
+                suggestions.classList.add('hidden');
+                return;
+            }
+
+            const regions = [
+                'Dakar', 'Thiès', 'Diourbel', 'Fatick', 'Kaolack', 'Kaffrine',
+                'Tambacounda', 'Kédougou', 'Kolda', 'Sédhiou', 'Ziguinchor',
+                'Saint-Louis', 'Louga', 'Matam'
+            ];
+
+            const filtered = regions.filter(region => 
+                region.toLowerCase().includes(query.toLowerCase())
+            );
+
+            if (filtered.length > 0) {
+                suggestions.innerHTML = filtered.map(region => 
+                    `<div class="px-4 py-2 hover:bg-gray-50 cursor-pointer transition-micro" onclick="selectRegion('${region.toLowerCase()}')">${region}</div>`
+                ).join('');
+                suggestions.classList.remove('hidden');
+            } else {
+                suggestions.classList.add('hidden');
+            }
+        }
+
+        function selectRegion(regionId) {
+            const suggestions = document.getElementById('search-suggestions');
+            suggestions.classList.add('hidden');
+            document.getElementById('map-search').value = '';
+            
+            // Highlight and show details for selected region
+            showRegionDetails(regionId);
+            
+            // Center map on region (simplified)
+            const regionElement = document.getElementById(regionId);
+            if (regionElement) {
+                regionElement.style.stroke = '#F59E0B';
+                regionElement.style.strokeWidth = '4';
+                setTimeout(() => {
+                    regionElement.style.stroke = '#FFFFFF';
+                    regionElement.style.strokeWidth = '2';
+                }, 2000);
+            }
+        }
+
+        function updateMapData() {
+            const year = document.getElementById('year-selector').value;
+            const loading = document.getElementById('map-loading');
+            
+            loading.classList.remove('hidden');
+            
+            // Simulate data loading
+            setTimeout(() => {
+                loading.classList.add('hidden');
+                // Update map colors based on year data
+                updateMapVisualization();
+            }, 1000);
+        }
+
+        function updateMapVisualization() {
+            const dataType = document.getElementById('data-type').value;
+            const regions = document.querySelectorAll('.region-path');
+            
+            regions.forEach(region => {
+                // Simulate different visualizations based on data type
+                switch(dataType) {
+                    case 'turnout':
+                        // Color based on turnout rates
+                        break;
+                    case 'winner':
+                        // Color based on winning party
+                        break;
+                    case 'registration':
+                        // Color based on registration rates
+                        break;
+                    case 'demographics':
+                        // Color based on demographic data
+                        break;
+                }
+            });
+        }
+
+        function showRegionDetails(regionId) {
+            const regionElement = document.getElementById(regionId);
+            const regionName = regionElement.getAttribute('data-region');
+            const turnout = regionElement.getAttribute('data-turnout');
+            const winner = regionElement.getAttribute('data-winner');
+            const population = regionElement.getAttribute('data-population');
+            
+            const modalTitle = document.getElementById('modal-title');
+            const modalContent = document.getElementById('modal-content');
+            
+            modalTitle.textContent = `Région de ${regionName}`;
+            
+            modalContent.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <img src="https://images.pexels.com/photos/6077326/pexels-photo-6077326.jpeg?auto=compress&cs=tinysrgb&w=400&h=250&fit=crop" 
+                             alt="Région de ${regionName}" 
+                             class="w-full h-48 object-cover rounded-lg"
+                             onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold text-textPrimary mb-2">Informations Générales</h4>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-textSecondary">Population:</span>
+                                    <span class="font-semibold">${parseInt(population).toLocaleString('fr-FR')}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-textSecondary">Taux de Participation:</span>
+                                    <span class="font-semibold">${turnout}%</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-textSecondary">Parti Gagnant:</span>
+                                    <span class="font-semibold">${winner}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-6">
+                    <h4 class="font-semibold text-textPrimary mb-3">Résultats Électoraux 2024</h4>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between p-3 bg-primary-50 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-4 h-4 bg-primary rounded"></div>
+                                <span class="font-medium">${winner}</span>
+                            </div>
+                            <span class="font-bold text-primary">${turnout}%</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-4 h-4 bg-secondary rounded"></div>
+                                <span class="font-medium">PASTEF</span>
+                            </div>
+                            <span class="font-bold text-secondary">${(100 - parseFloat(turnout)).toFixed(1)}%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-6">
+                    <h4 class="font-semibold text-textPrimary mb-3">Données Démographiques</h4>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="text-center p-3 bg-gray-50 rounded-lg">
+                            <p class="text-lg font-bold text-textPrimary">${Math.floor(parseInt(population) * 0.52).toLocaleString('fr-FR')}</p>
+                            <p class="text-xs text-textSecondary">Femmes</p>
+                        </div>
+                        <div class="text-center p-3 bg-gray-50 rounded-lg">
+                            <p class="text-lg font-bold text-textPrimary">${Math.floor(parseInt(population) * 0.48).toLocaleString('fr-FR')}</p>
+                            <p class="text-xs text-textSecondary">Hommes</p>
+                        </div>
+                        <div class="text-center p-3 bg-gray-50 rounded-lg">
+                            <p class="text-lg font-bold text-textPrimary">${Math.floor(parseInt(population) * 0.65).toLocaleString('fr-FR')}</p>
+                            <p class="text-xs text-textSecondary">Électeurs Inscrits</p>
+                        </div>
+                        <div class="text-center p-3 bg-gray-50 rounded-lg">
+                            <p class="text-lg font-bold text-textPrimary">${Math.floor(Math.random() * 50 + 150)}</p>
+                            <p class="text-xs text-textSecondary">Bureaux de Vote</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('region-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('region-modal').classList.add('hidden');
+        }
+
+        function exportMap() {
+            // Simulate map export
+            const loading = document.getElementById('map-loading');
+            loading.classList.remove('hidden');
+            
+            setTimeout(() => {
+                loading.classList.add('hidden');
+                alert('Carte exportée avec succès!');
+            }, 2000);
+        }
+
+        function toggleLayer(layerName) {
+            console.log(`Toggle layer: ${layerName}`);
+            // Implement layer toggle functionality
+        }
+
+        // Zoom and Pan Functions
+        function zoomIn() {
+            currentZoom = Math.min(currentZoom * 1.2, 5);
+            updateMapTransform();
+        }
+
+        function zoomOut() {
+            currentZoom = Math.max(currentZoom / 1.2, 0.5);
+            updateMapTransform();
+        }
+
+        function resetZoom() {
+            currentZoom = 1;
+            currentTransform = { x: 0, y: 0 };
+            updateMapTransform();
+        }
+
+        function updateMapTransform() {
+            const map = document.getElementById('senegal-map');
+            map.style.transform = `translate(${currentTransform.x}px, ${currentTransform.y}px) scale(${currentZoom})`;
+        }
+
+        function startPan(event) {
+            isPanning = true;
+            panStart = { x: event.clientX - currentTransform.x, y: event.clientY - currentTransform.y };
+        }
+
+        function pan(event) {
+            if (!isPanning) return;
+            
+            currentTransform.x = event.clientX - panStart.x;
+            currentTransform.y = event.clientY - panStart.y;
+            updateMapTransform();
+        }
+
+        function endPan() {
+            isPanning = false;
+        }
+
+        function zoom(event) {
+            event.preventDefault();
+            const delta = event.deltaY > 0 ? 0.9 : 1.1;
+            currentZoom = Math.max(0.5, Math.min(5, currentZoom * delta));
+            updateMapTransform();
+        }
+
+        // Close search suggestions when clicking outside
+        document.addEventListener('click', function(event) {
+            const searchBox = document.getElementById('map-search');
+            const suggestions = document.getElementById('search-suggestions');
+            
+            if (!searchBox.contains(event.target) && !suggestions.contains(event.target)) {
+                suggestions.classList.add('hidden');
+            }
+        });
+
+        // Initialize map
+        document.addEventListener('DOMContentLoaded', function() {
+            updateMapVisualization();
+        });
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>
